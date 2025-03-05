@@ -16,12 +16,10 @@ spec:
     metadata:
       labels:
         app: hello-world-nodejs
-      annotations:
-        buildTimestamp: "${{ steps.annotation.outputs.annotation }}"
     spec:
       containers:
       - name: hello-world-nodejs
-        image: glentechdemoacr.azurecr.io/hello-world-nodejs:${{ steps.tag.outputs.tag }}
+        image: glentechdemoacr.azurecr.io/hello-world-nodejs:latest
         ports:
         - containerPort: 3000
 ---
