@@ -4,6 +4,11 @@ metadata:
   name: hello-world-nodejs
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: hello-world-nodejs
@@ -11,10 +16,12 @@ spec:
     metadata:
       labels:
         app: hello-world-nodejs
+      annotations:
+        buildTimestamp: "${{ steps.annotation.outputs.annotation }}"
     spec:
       containers:
       - name: hello-world-nodejs
-        image: glentechdemoacr.azurecr.io/hello-world-nodejs:latest
+        image: glentechdemoacr.azurecr.io/hello-world-nodejs:${{ steps.tag.outputs.tag }}
         ports:
         - containerPort: 3000
 ---
